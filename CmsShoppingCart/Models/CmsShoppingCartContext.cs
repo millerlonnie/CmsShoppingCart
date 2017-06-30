@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CmsShoppingCart.Models.Data;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -19,6 +20,9 @@ namespace CmsShoppingCart.Models
         {
         }
 
-      //  public System.Data.Entity.DbSet<CmsShoppingCart.Models.DTO.Product> Products { get; set; }
+        public DbSet<Page> Pages { get; set; }
+
+        public System.Data.Entity.DbSet<CmsShoppingCart.Models.ViewModels.Pages.PageVM> PageVMs { get; set; }
+        //  public System.Data.Entity.DbSet<CmsShoppingCart.Models.DTO.Product> Products { get; set; }
     }
 }
