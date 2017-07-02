@@ -170,10 +170,20 @@
     <Compile Include="Migrations\201706300314097_PagesController.Designer.cs">
       <DependentUpon>201706300314097_PagesController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707020132498_pageVmDbRemove.cs" />
+    <Compile Include="Migrations\201707020132498_pageVmDbRemove.Designer.cs">
+      <DependentUpon>201707020132498_pageVmDbRemove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201707020143308_tableSidebar.cs" />
+    <Compile Include="Migrations\201707020143308_tableSidebar.Designer.cs">
+      <DependentUpon>201707020143308_tableSidebar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CmsShoppingCartContext.cs" />
     <Compile Include="Models\Data\Page.cs" />
+    <Compile Include="Models\Data\Sidebar.cs" />
     <Compile Include="Models\ViewModels\Pages\PageVM.cs" />
+    <Compile Include="Models\ViewModels\SidebarVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +191,7 @@
     <Content Include="App_Data\CmsShoppingCartContext-20170630004548_log.ldf">
       <DependentUpon>CmsShoppingCartContext-20170630004548.mdf</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\Pages\EditSidebar.cshtml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -201,6 +212,8 @@
     <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Pages\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Pages\AddPage.cshtml" />
+    <Content Include="Areas\Admin\Views\Pages\EditPage.cshtml" />
+    <Content Include="Areas\Admin\Views\Pages\PageDetails.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -243,6 +256,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706300314097_PagesController.resx">
       <DependentUpon>201706300314097_PagesController.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707020132498_pageVmDbRemove.resx">
+      <DependentUpon>201707020132498_pageVmDbRemove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707020143308_tableSidebar.resx">
+      <DependentUpon>201707020143308_tableSidebar.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

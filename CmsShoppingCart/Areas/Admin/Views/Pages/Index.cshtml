@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Pages";
 }
-
+@Scripts.Render("~/bundles/jquery")
 <h2>Pages</h2>
 
 <p>
@@ -20,8 +20,8 @@
 else  
 {
 
-    <table class="table">
-        <tr>
+    <table class="table sorting" id="pages"  >
+        <tr class="home">
             <th>
                 Title
             </th>
@@ -30,14 +30,15 @@ else
             </th>
 
             <th>
-                Side bar)
+                Sidebar)
             </th>
             <th></th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
+            <tr id="id_@item.Id" class="@item.Slug">
+           
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
@@ -51,7 +52,11 @@ else
                 <td>
                     @Html.ActionLink("Edit", "EditPage", new { id = item.Id }) |
                     @Html.ActionLink("Details", "PageDetails", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "DeletePage", new { id = item.Id })
+                    @if (item.Slug != "home") //delete other pages except the home page
+                    {
+                        @Html.ActionLink("Delete", "DeletePage", new { id = item.Id }, new {@class = "delete" })
+                    }
+                     
                 </td>
             </tr>
         }
@@ -59,3 +64,53 @@ else
     </table>
 
 }
+
+@section scripts{
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"
+        integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="
+        crossorigin="anonymous"></script>
+
+      
+   
+
+        <script>
+            /* 
+            *confirm page deletion
+            */
+
+            $(function () {
+                $("a.delete").click(function () {
+                    if (!confirm("Confirm page deletion")) return false;
+
+                });
+            });
+            ///////////////////////////////////////////////////////////////
+
+            /* 
+          * Sorting by dragand drop
+          */
+
+            $("table#pages tbody").sortable({
+                items: "tr:not(.home)",
+                placeholder: "ui-state-highlight",
+                update: function () {
+                    var ids = $("table#pages tbody").sortable("serialize");
+                    var url = "/Admin/Pages/ReorderPages";
+
+                    $.post(url, ids, function (data) {
+
+                    });
+                }
+           
+
+            });
+
+                ///////////////////////////////////////////////////////////////
+         
+
+             
+            
+
+        </script>
+
+    }
