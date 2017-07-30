@@ -196,13 +196,19 @@
     <Compile Include="Migrations\201707060244521_categoriesTable.Designer.cs">
       <DependentUpon>201707060244521_categoriesTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707282207127_ProductTable.cs" />
+    <Compile Include="Migrations\201707282207127_ProductTable.Designer.cs">
+      <DependentUpon>201707282207127_ProductTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CmsShoppingCartContext.cs" />
     <Compile Include="Models\Data\Category.cs" />
     <Compile Include="Models\Data\Page.cs" />
+    <Compile Include="Models\Data\Product.cs" />
     <Compile Include="Models\Data\Sidebar.cs" />
     <Compile Include="Models\ViewModels\Pages\PageVM.cs" />
     <Compile Include="Models\ViewModels\Shop\CategoryVM.cs" />
+    <Compile Include="Models\ViewModels\Shop\ProductVM.cs" />
     <Compile Include="Models\ViewModels\SidebarVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -584,6 +590,7 @@
     <Content Include="Scripts\ckeditor\skins\v2\skin.js" />
     <Content Include="Scripts\ckeditor\skins\v2\templates.css" />
     <Content Include="Scripts\ckeditor\themes\default\theme.js" />
+    <Content Include="Areas\Admin\Views\Shop\AddProduct.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -639,6 +646,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707060244521_categoriesTable.resx">
       <DependentUpon>201707060244521_categoriesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707282207127_ProductTable.resx">
+      <DependentUpon>201707282207127_ProductTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
