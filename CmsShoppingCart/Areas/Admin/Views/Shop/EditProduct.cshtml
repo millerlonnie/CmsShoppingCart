@@ -1,10 +1,21 @@
 ﻿@model CmsShoppingCart.Models.ViewModels.Shop.ProductVM
 
 @{
-    ViewBag.Title = "Add Product";
+    ViewBag.Title = "EditProduct";
 }
 
-<h2>AddProduct</h2>
+<h2>Edit Product</h2>
+
+<div>
+    @Html.ActionLink("Back to Products","Products")
+</div>
+
+<style> /* to hide image edit field thereby preventing edit*/
+    input#ImageName{
+        display:none
+    }
+</style>
+
 
 @if (TempData["SM"] != null)
 {
@@ -13,15 +24,17 @@
     </div>
 }
 
- @*use multipart/form-data if the form contains a file upload*@
-@using (Html.BeginForm("AddProduct", "Shop", FormMethod.Post, new {enctype = "multipart/form-data" }))
+
+@using (Html.BeginForm("EditProduct", "Shop", FormMethod.Post,new {enctype = "multipart/form-data" })) //specify action and controller name & Form method
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>ProductVM</h4>
+         
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -29,12 +42,12 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
         </div>
-
+ 
 
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" }  )
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -46,52 +59,48 @@
                 @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
             </div>
         </div>
-
-         @*selectlist for product type*@
+            
 
         <div class="form-group">
-            
+
             <label class="control-label col-md-2" for="HasSidebar">Category</label>
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CategoryId, Model.Categories, "Select Category", new { @class = "form-control" } )
+                @Html.DropDownListFor(model => model.CategoryId, Model.Categories,  new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        @*image upload*@
-
-
+ 
 
         <div class="form-group">
-         
-            <label class="control-label col-md-2" for="HasSidebar">Product Image</label>
             <div class="col-md-10">
-                <input type="file" name="file" id="ImageUpload" /> @*for image upload*@
-               
-                <img id="imgpreview" src="#" /> @*for image preview, # is a javacript call*@
-
+                <label class="control-label col-md-2" for="HasSidebar">Image Name</label>
+                @Html.EditorFor(model => model.ImageName, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="col-md-10">
+                    <img src="/Images/Uploads/Products/@Model.Id/Thubs/@Model.ImageName" />
+                    <br /><br />
+                    <img id="imgpreview" src="#" /> @*for image preview, # is a javacript call*@
+                    <br /><br />
+                    <div class="col-md-10">
+                        <input type="file" name="file" id="ImageUpload" /> @*for image upload*@
+                    </div>
+                </div>
             </div>
-        </div>
-
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Add Product" class="btn btn-default" />
+                <input type="submit" value="Edit Product" class="btn btn-default" />
             </div>
         </div>
-    </div>
+     
+   </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Products")
-</div>
-
-@section scripts{
-    
-
+@section Scripts {
 <script src="~/Scripts/jquery-3.1.1.js"></script>
     <script>
-   $(function () {
+
+$(function () {
 
     /*
     * Preview selected image
@@ -119,8 +128,6 @@
     //////////////////////////////////////////////////////////////
 
 });
-
-
 
     </script>
 

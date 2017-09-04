@@ -25,6 +25,8 @@ namespace CmsShoppingCart.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
 
+        public System.Data.Entity.DbSet<CmsShoppingCart.Models.ViewModels.Shop.ProductVM> ProductVMs { get; set; }
+
 
         //  public System.Data.Entity.DbSet<CmsShoppingCart.Models.ViewModels.Pages.PageVM> PageVMs { get; set; }
         //  public System.Data.Entity.DbSet<CmsShoppingCart.Models.DTO.Product> Products { get; set; }

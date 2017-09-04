@@ -1,6 +1,7 @@
 ﻿using CmsShoppingCart.Models;
 using CmsShoppingCart.Models.Data;
 using CmsShoppingCart.Models.ViewModels.Shop;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -213,7 +214,7 @@ namespace CmsShoppingCart.Areas.Admin.Controllers
 
             #region Upload Image
 
-            //create necessary directories
+            //code create necessary directories not done mannually
             var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\Uploads", Server.MapPath(@"\")));
 
 
@@ -287,5 +288,209 @@ namespace CmsShoppingCart.Areas.Admin.Controllers
 
             return RedirectToAction("AddProduct");
         }
+
+        //display /list products inluding pagination
+        //Get: Admin/Shop/Products
+        public ActionResult Products(int? page, int? catId) //nullable int? of both page and catId (filter to products via catrgaoires)
+        {
+            //Declare a list of ProductVM
+            List<ProductVM> listOfProductVM;
+
+            //Set page number
+            var pageNumber = page ?? 1;
+
+            using (CmsShoppingCartContext db = new CmsShoppingCartContext())
+            {
+                //Init the list
+                listOfProductVM = db.Products.ToArray()
+                                   .Where(x => catId == null || catId == 0 || x.CategoryId == catId)
+                                    .Select(x => new ProductVM(x))
+                                    .ToList();
+                //Populate categoires select list
+                ViewBag.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
+                //Set selected category
+                ViewBag.SelectedCat = catId.ToString();
+            }
+            //Set pagination
+            var onePageOfProducts = listOfProductVM.ToPagedList(pageNumber, 3); // will only contain 25 products max because of the pageSize
+
+            ViewBag.OnePageOfProducts = onePageOfProducts;
+            //Return view with list
+ 
+
+            return View(listOfProductVM);
+        }
+
+        //Get: Admin/Shop/EditProduct/id
+        [HttpGet]
+        public ActionResult EditProduct(int? id)
+        {
+            //declare productVM
+           ProductVM model;
+            using (CmsShoppingCartContext db = new CmsShoppingCartContext())
+            {
+                //Get ptoduct
+                Product dto = db.Products.Find(id);
+
+                //make  sure it exsists
+                if (dto == null)
+                {
+                    return Content("That product does not exists.");
+                }
+
+                //init model
+                model = new ProductVM(dto);
+
+                //make a select list
+                model.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
+
+                //Get gallery images
+                model.GalleryImages = Directory.EnumerateFiles(Server.
+                                    MapPath("~/Images/Uploads/Products/" + id + "/Gallery/Thubs"))
+                                    .Select(fileName => Path.GetFileName(fileName));
+            }
+
+
+            //Return view with model. 
+
+            return View(model);
+        }
+
+        //POST: Admin/Shop/EditProduct/id
+        [HttpPost]
+        public ActionResult EditProduct(ProductVM model, HttpPostedFileBase file)//its to receive a viewmodel ProductVM and  a File
+        {
+            //Get product id
+            int id = model.Id;
+
+            //Populate categories select list and gallery images
+            model.Categories = new SelectList(db.Categories.ToList(), "Id", "Name");
+            model.GalleryImages = Directory.EnumerateFiles(Server.
+                                   MapPath("~/Images/Uploads/Products/" + id + "/Gallery/Thubs"))
+                                   .Select(fileName => Path.GetFileName(fileName));
+            //Check model state
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            //Make sure product name is unique
+            if(db.Products.Where( x => x.Id != id).Any(x => x.Name == model.Name ))
+            {
+                ModelState.AddModelError("", "That product name is taken!");
+                return View(model);
+            }
+            //Update Product
+            Product dto = db.Products.Find(id);
+
+            dto.Name = model.Name;
+            dto.Slug = model.Name.Replace(" ", "-").ToLower();
+            dto.Price = model.Price;
+            dto.Description = model.Description;
+            dto.CategoryId = model.CategoryId;
+            dto.ImageName = model.ImageName;
+
+            Category catDTO = db.Categories.FirstOrDefault(x => x.Id == model.CategoryId);//with a foreign key relationship of Categories Name in Products
+            dto.CategoryName = catDTO.Name;
+
+            db.SaveChanges();
+
+            //Set TempData message
+            TempData["SM"] = "You have edited the product";
+
+            //for image edit & upload
+            #region Image upload   
+
+            //Check for file upload
+            if (file != null && file.ContentLength > 0)
+            {
+
+                //Get extension
+                string ext = file.ContentType.ToLower();
+
+                //Verify extension
+                if (ext != "image/jpg" &&
+                   ext != "image/jpeg" &&
+                   ext != "image/pjeg" &&
+                   ext != "image/x-png" &&
+                   ext != "image/png")
+                {
+
+                    
+                    ModelState.AddModelError("", "The image was not uploaded -wrong image extension");
+                    return View(model);
+                }
+
+
+                //Set upload directory paths
+                var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\Uploads", Server.MapPath(@"\")));
+                
+                var pathString2 = Path.Combine(originalDirectory.ToString(), "Products\\" + id.ToString()); // creates another folder
+                var pathString3 = Path.Combine(originalDirectory.ToString(), "Products\\" + id.ToString() + "\\Thubs"); //creates another folder for thubs
+
+                //Delete files from directories
+                DirectoryInfo di1 = new DirectoryInfo(pathString2);
+                DirectoryInfo di2 = new DirectoryInfo(pathString3);
+
+                foreach (FileInfo file2 in di1.GetFiles()) file2.Delete(); //delete existing files
+
+                foreach (FileInfo file3 in di2.GetFiles()) file3.Delete();
+
+
+                //Save image name
+
+                string imageName = file.FileName;
+
+                Product dto2 = db.Products.Find(id);
+                dto2.ImageName = imageName;
+                db.SaveChanges();
+
+                //Save original and thumb images
+              
+                var path = string.Format("{0}\\{1}", pathString2, imageName);
+                var path2 = string.Format("{0}\\{1}", pathString3, imageName);
+
+                 
+                file.SaveAs(path);
+               
+                WebImage img = new WebImage(file.InputStream);
+                img.Resize(200, 200);
+                img.Save(path2);
+
+            }
+
+            #endregion
+
+            //Redirect
+            return RedirectToAction("EditProduct");
+        }
+
+        //Get: Admin/Shop/DeleteProducts
+         
+        public ActionResult DeleteProduct(int id)
+        {
+            //Delete product from DB
+            using (CmsShoppingCartContext db = new CmsShoppingCartContext())
+            {
+                Product dto = db.Products.Find(id);
+                db.Products.Remove(dto);
+                db.SaveChanges();
+
+            }
+
+            //Delete product folder.
+
+            var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\Uploads", Server.MapPath(@"")));
+            string pathString = Path.Combine(originalDirectory.ToString(), "Products\\" + id.ToString());
+
+            if (Directory.Exists(pathString))
+                Directory.Delete(pathString, true); //to delete folders and sub- directories
+
+                //redirect to action
+                return RedirectToAction("Products");
+        }
+
+
+
     }
 }
