@@ -8,6 +8,7 @@
 @using PagedList;
 
 
+ 
 
 <h2>Products</h2>
 
@@ -98,6 +99,9 @@
    <!-- output a paging control that lets the user navigation to the previous page, next page, etc -->
 @Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Products", new { page, catId = ViewBag.SelectedCat }))
 
+
+
+ 
 @section scripts{
     <script src="~/Scripts/jquery-3.1.1.js"></script>
  

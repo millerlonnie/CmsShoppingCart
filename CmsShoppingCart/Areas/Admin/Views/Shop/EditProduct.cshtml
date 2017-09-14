@@ -6,6 +6,12 @@
 
 <h2>Edit Product</h2>
 
+ 
+    
+
+ 
+
+
 <div>
     @Html.ActionLink("Back to Products","Products")
 </div>
@@ -96,8 +102,55 @@
    </div>
 }
 
+@* using Dropzone for: 
+    1)we want to display a message if there are no gallery images.
+2) Have a form to upload the images
+3)Show uploaded gallery images with delete links.*@
+
+@if(! Model.GalleryImages.Any()) //1) if there are no gallery images in viewmodel
+{
+    <h3>There are no gallery images for this product</h3>
+}
+
+@*2) form to upload images, in code below we use dropzone to autohide form .:class="dropzone" id="dropzoneForm"*@
+
+@*action will be on shopController called SaveGalleryImages*@
+<form action="/admin/shop/SaveGalleryImages" method="post" enctype="multipart/form-data" class="dropzone" id="dropzoneForm">
+
+    <div class="fallback">
+        <input type="file" name="file" multiple /> @*to  uppload multiple files*@
+        <input type="submit" value="Upload" />      @*submit button with value Upload*@
+    </div>
+
+</form>
+
+<br /><br />
+
+@*Display images*@
+
+@foreach(var image in Model.GalleryImages)
+{
+    <div style="display: inline-block"> @*so that they show up sideby side*@
+    <img src="/Images/Uploads/Products/@Model.Id/Gallery/Thubs/@image" /> @*display images*@
+    @*Create a delete link with a delete attribute, method= DeleteImage, Controller=Shop , dataattribute data_name (NB:data attributes always have _ , show a _ when HTML is rendrerd  as below*@
+    @Html.ActionLink("delete","DeleteImage","Shop", new { @class="deleteimage", data_name = image })
+
+
+    </div>
+}
+
+
+<link href="~/Scripts/dropzone/basic.css" rel="stylesheet" />
+<link href="~/Scripts/dropzone/dropzone.css" rel="stylesheet" />
+<script src="~/Scripts/dropzone/dropzone-amd-module.min.js"></script>
+<script src="~/Scripts/dropzone/dropzone.js"></script>
+<script src="~/Scripts/dropzone/dropzone.min.js"></script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>   
+
 @section Scripts {
-<script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Scripts/dropzone/dropzone.js"></script>
+
+
     <script>
 
 $(function () {
@@ -126,6 +179,49 @@ $(function () {
     });
 
     //////////////////////////////////////////////////////////////
+
+    /*
+    * Dropzone js
+    */
+
+    Dropzone.options.dropzoneForm = {
+        acceptedFiles: "image/*",
+        init: function() {
+            this.on("complete", function (file) {
+                if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                    location.reload();
+                }
+            });
+
+            this.on("sending", function (file, xhr, formData) {
+                formData.append("id", @Model.Id);
+            });
+        }
+    };
+
+    //////////////////////////////////////////////////////////////
+
+    /*
+    * Dropzone js
+    */
+
+    $("a.deleteimage").click(function (e) {
+        e.preventDefault();
+
+        if (!confirm("Confirm deletion")) return false;
+
+        var $this = $(this);
+        var url = "/admin/shop/DeleteImage";
+        var imageName = $this.data("name");
+
+        $.post(url, { id: @Model.Id, imageName: imageName }, function(data) {
+            $this.parent().fadeOut("fast");
+        });
+
+    });
+
+    //////////////////////////////////////////////////////////////
+
 
 });
 
