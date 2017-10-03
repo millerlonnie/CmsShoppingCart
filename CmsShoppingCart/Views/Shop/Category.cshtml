@@ -1,0 +1,54 @@
+﻿@model IEnumerable<CmsShoppingCart.Models.ViewModels.Shop.ProductVM>
+
+@{ 
+    ViewBag.Title = ViewBag.CategoryName;  //from view bag from db 
+}
+
+ 
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+         
+        <th>
+             Description 
+        </th>
+        <th>
+             Price 
+        </th>
+          
+        <th>
+             Image
+        </th>
+        <th></th> @*for product details*@
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+         
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+
+        <td> @*dispaly title as href link and related images using filepath ..details contoller*@
+            <a href="/shop/product-details/@item.Slug">  
+                <img src="/Images/Uploads/Products/@item.Id/Thubs/@item.ImageName" />
+            </a>
+        </td>
+
+        <td> @*below: shop controller/ product class/ details view*@
+            <a href="/shop/product-details/@item.Slug">Details</a>
+        </td>
+            
+        
+    </tr>
+}
+
+</table>

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<CmsShoppingCart.Models.ViewModels.Cart.CartVM>
+
+@{
+    ViewBag.Title = "Cart Details";  
+}
+
+<h2>Cart Details</h2>
+@{ 
+
+}
+
+@if (ViewBag.Message != null)
+{
+    <h3>@ViewBag.Message</h3>  @*ViewBag.Message = "Your cart is empty";*@
+}
+
+else
+{
+
+
+
+      
+     <table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th> @*for links to implement remove of items from cart.*@
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+
+        <th> @*for grand total*@
+
+        </th> 
+       
+         
+    </tr>
+
+    @foreach (var item in Model)
+     {
+     <tr>
+         
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+         <td>
+            <img src="/Images/Uploads/Products/@item.ProductID/Thubs/@item.Image"/>
+         </td>
+        
+         
+        <td> @*links to increment or remove products*@
+            <a href="#" class="incrproduct" data-id="@item.ProductID">+</a>
+            <a href="#" class="incrproduct" data-id="@item.ProductID">-</a>
+            <a href="#" class="incrproduct" data-id="@item.ProductID">Remove</a>
+        </td>
+                 
+         <td>
+            $ @Html.DisplayFor(modelItem => item.Total)
+         </td>
+
+    </tr>
+}
+
+         <tr>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td></td>
+             <td>$@ViewBag.GrandTotal</td>
+
+         </tr>
+
+    </table>
+
+}

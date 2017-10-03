@@ -181,36 +181,36 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\PagesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ShopController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\PagesController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706300139089_initial.cs" />
-    <Compile Include="Migrations\201706300139089_initial.Designer.cs">
-      <DependentUpon>201706300139089_initial.cs</DependentUpon>
+    <Compile Include="Migrations\201709141647068_dbupdate.cs" />
+    <Compile Include="Migrations\201709141647068_dbupdate.Designer.cs">
+      <DependentUpon>201709141647068_dbupdate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201706300314097_PagesController.cs" />
-    <Compile Include="Migrations\201706300314097_PagesController.Designer.cs">
-      <DependentUpon>201706300314097_PagesController.cs</DependentUpon>
+    <Compile Include="Migrations\201709271902009_resume.cs" />
+    <Compile Include="Migrations\201709271902009_resume.Designer.cs">
+      <DependentUpon>201709271902009_resume.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707020132498_pageVmDbRemove.cs" />
-    <Compile Include="Migrations\201707020132498_pageVmDbRemove.Designer.cs">
-      <DependentUpon>201707020132498_pageVmDbRemove.cs</DependentUpon>
+    <Compile Include="Migrations\201709271919037_fix.cs" />
+    <Compile Include="Migrations\201709271919037_fix.Designer.cs">
+      <DependentUpon>201709271919037_fix.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707020143308_tableSidebar.cs" />
-    <Compile Include="Migrations\201707020143308_tableSidebar.Designer.cs">
-      <DependentUpon>201707020143308_tableSidebar.cs</DependentUpon>
+    <Compile Include="Migrations\201709291727337_29\09\17.cs" />
+    <Compile Include="Migrations\201709291728338_29-09-11.cs" />
+    <Compile Include="Migrations\201709291728338_29-09-11.Designer.cs">
+      <DependentUpon>201709291728338_29-09-11.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707060244521_categoriesTable.cs" />
-    <Compile Include="Migrations\201707060244521_categoriesTable.Designer.cs">
-      <DependentUpon>201707060244521_categoriesTable.cs</DependentUpon>
+    <Compile Include="Migrations\201709292002310_29-09-17Two.cs" />
+    <Compile Include="Migrations\201709292002310_29-09-17Two.Designer.cs">
+      <DependentUpon>201709292002310_29-09-17Two.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201707282207127_ProductTable.cs" />
-    <Compile Include="Migrations\201707282207127_ProductTable.Designer.cs">
-      <DependentUpon>201707282207127_ProductTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201708171624017_ProductsChtml.cs" />
-    <Compile Include="Migrations\201708171624017_ProductsChtml.Designer.cs">
-      <DependentUpon>201708171624017_ProductsChtml.cs</DependentUpon>
+    <Compile Include="Migrations\201709301915273_hu8.cs" />
+    <Compile Include="Migrations\201709301915273_hu8.Designer.cs">
+      <DependentUpon>201709301915273_hu8.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CmsShoppingCartContext.cs" />
@@ -218,6 +218,7 @@
     <Compile Include="Models\Data\Page.cs" />
     <Compile Include="Models\Data\Product.cs" />
     <Compile Include="Models\Data\Sidebar.cs" />
+    <Compile Include="Models\ViewModels\Cart\CartVM.cs" />
     <Compile Include="Models\ViewModels\Pages\PageVM.cs" />
     <Compile Include="Models\ViewModels\Shop\CategoryVM.cs" />
     <Compile Include="Models\ViewModels\Shop\ProductVM.cs" />
@@ -232,7 +233,17 @@
     <Content Include="Areas\Admin\Views\Pages\EditSidebar.cshtml" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fancybox\blank.gif" />
+    <Content Include="Content\fancybox\fancybox_buttons.png" />
+    <Content Include="Content\fancybox\fancybox_loading%402x.gif" />
+    <Content Include="Content\fancybox\fancybox_loading.gif" />
+    <Content Include="Content\fancybox\fancybox_overlay.png" />
+    <Content Include="Content\fancybox\fancybox_sprite%402x.png" />
+    <Content Include="Content\fancybox\fancybox_sprite.png" />
     <Content Include="Content\img\ajax-loader.gif" />
+    <Content Include="Content\jquery.fancybox-buttons.css" />
+    <Content Include="Content\jquery.fancybox-thumbs.css" />
+    <Content Include="Content\jquery.fancybox.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -622,6 +633,12 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.fancybox-buttons.js" />
+    <Content Include="Scripts\jquery.fancybox-media.js" />
+    <Content Include="Scripts\jquery.fancybox-thumbs.js" />
+    <Content Include="Scripts\jquery.fancybox.js" />
+    <Content Include="Scripts\jquery.fancybox.pack.js" />
+    <Content Include="Scripts\jquery.mousewheel-3.0.6.pack.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -641,10 +658,17 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Pages\Index.cshtml" />
+    <Content Include="Views\Pages\_PagesMenuPartial.cshtml" />
+    <Content Include="Views\Pages\_SidebarPartial.cshtml" />
+    <Content Include="Views\Shop\CategoryMenuPartial.cshtml" />
+    <Content Include="Views\Shop\Category.cshtml" />
+    <Content Include="Views\Shop\ProductDetails.cshtml" />
+    <Content Include="Views\Cart\_CartPartial.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Controllers\" />
     <Folder Include="fileman\" />
   </ItemGroup>
   <ItemGroup>
@@ -655,26 +679,23 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201706300139089_initial.resx">
-      <DependentUpon>201706300139089_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709141647068_dbupdate.resx">
+      <DependentUpon>201709141647068_dbupdate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706300314097_PagesController.resx">
-      <DependentUpon>201706300314097_PagesController.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709271902009_resume.resx">
+      <DependentUpon>201709271902009_resume.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707020132498_pageVmDbRemove.resx">
-      <DependentUpon>201707020132498_pageVmDbRemove.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709271919037_fix.resx">
+      <DependentUpon>201709271919037_fix.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707020143308_tableSidebar.resx">
-      <DependentUpon>201707020143308_tableSidebar.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709291728338_29-09-11.resx">
+      <DependentUpon>201709291728338_29-09-11.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707060244521_categoriesTable.resx">
-      <DependentUpon>201707060244521_categoriesTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709292002310_29-09-17Two.resx">
+      <DependentUpon>201709292002310_29-09-17Two.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201707282207127_ProductTable.resx">
-      <DependentUpon>201707282207127_ProductTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201708171624017_ProductsChtml.resx">
-      <DependentUpon>201708171624017_ProductsChtml.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709301915273_hu8.resx">
+      <DependentUpon>201709301915273_hu8.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

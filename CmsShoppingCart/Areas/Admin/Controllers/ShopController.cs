@@ -12,6 +12,10 @@ using System.Web.Mvc;
 
 namespace CmsShoppingCart.Areas.Admin.Controllers
 {
+
+    /// <summary>
+    /// for the admin control pannel
+    /// </summary>
     public class ShopController : Controller
     {
          CmsShoppingCartContext db = new CmsShoppingCartContext();
@@ -22,15 +26,14 @@ namespace CmsShoppingCart.Areas.Admin.Controllers
             // Declare a list of models
             List<CategoryVM> categoryVMList;
 
-            using (CmsShoppingCartContext db = new CmsShoppingCartContext())
-            {
+          
                 // Init the list
                 categoryVMList = db.Categories
                                 .ToArray()
                                 .OrderBy(x => x.Sorting)
                                 .Select(x => new CategoryVM(x))
                                 .ToList();
-            }
+           
 
             // Return view with list
             return View(categoryVMList);
