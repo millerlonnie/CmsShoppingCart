@@ -1,0 +1,16 @@
+namespace CmsShoppingCart.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class accout123 : DbMigration
+    {
+        public override void Up()
+        {
+        }
+        
+        public override void Down()
+        {
+        }
+    }
+}

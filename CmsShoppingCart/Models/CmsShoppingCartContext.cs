@@ -24,14 +24,21 @@ namespace CmsShoppingCart.Models
         public DbSet<Sidebar> Sidebars { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<UserDTO> Users { get; set; }
+        public DbSet<RoleDTO> Roles { get; set; }
+        public DbSet<UserRoleDTO> UserRoles { get; set; }
 
-        public System.Data.Entity.DbSet<CmsShoppingCart.Models.ViewModels.Pages.PageVM> PageVMs { get; set; }
 
-        public System.Data.Entity.DbSet<CmsShoppingCart.Models.ViewModels.SidebarVM> SidebarVMs { get; set; }
 
-        public System.Data.Entity.DbSet<CmsShoppingCart.Models.ViewModels.Shop.CategoryVM> CategoryVMs { get; set; }
 
-        public System.Data.Entity.DbSet<CmsShoppingCart.Models.ViewModels.Shop.ProductVM> ProductVMs { get; set; }
+
+        //public System.Data.Entity.DbSet<CmsShoppingCart.Models.ViewModels.Pages.PageVM> PageVMs { get; set; }
+
+        //public System.Data.Entity.DbSet<CmsShoppingCart.Models.ViewModels.SidebarVM> SidebarVMs { get; set; }
+
+        //public System.Data.Entity.DbSet<CmsShoppingCart.Models.ViewModels.Shop.CategoryVM> CategoryVMs { get; set; }
+
+        //public System.Data.Entity.DbSet<CmsShoppingCart.Models.ViewModels.Shop.ProductVM> ProductVMs { get; set; }
 
         //public System.Data.Entity.DbSet<CmsShoppingCart.Models.ViewModels.Shop.ProductVM> ProductVMs { get; set; }
 

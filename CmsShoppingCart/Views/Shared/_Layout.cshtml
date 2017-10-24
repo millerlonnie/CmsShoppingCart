@@ -21,6 +21,33 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                 @Html.Action("_PagesMenuPartial", "Pages"); @*Register route in RouteConfig*@
+          @*//-------------------------------------------------------------------------------//*@     
+                  @*if user is logged in*@
+                  
+                 @if (Request.IsAuthenticated)      
+                  {
+                     <li><a href="/account/logout">Logout</a></li>
+                 }
+                 //if user inst loged in
+                 else
+                 {
+                     if (ViewBag.Title == "Login")
+                     {
+                        <li class="active"><a href="/account/login">Login</a></li>
+                     }
+                     else
+                     {
+                        <li><a href="/account/login">Login</a></li>
+                     }
+
+                 }
+                    
+                    @if(Request.IsAuthenticated) 
+                    {
+                        <li>@Html.Action("UserNavPartial", "Account", new { area  ="" })</li>
+                    }
+                    @*//-------------------------------------------------------------------------------//*@
+                               
                 </ul>
                 <ul class="navbar-collapse navbar-right">  @*pull navbar to the right, alos add route*@ 
                     @Html.Action("_CartPartial","Cart") @*cart cartial in cart contoller*@
