@@ -42,16 +42,44 @@
 
                  }
                     
-                    @if(Request.IsAuthenticated) 
-                    {
-                        <li>@Html.Action("UserNavPartial", "Account", new { area  ="" })</li>
+                    @if (Request.IsAuthenticated && User.IsInRole("User"))
+                            {
+                                    if (ViewBag.Title == "User Profile")  /*highlight username by setting li class to active*/
+                                    {
+                            <li class="active">@Html.Action("UserNavPartial", "Account", new { area = "" })</li> /**/
+                        }
+                        else
+                        {
+                            <li>@Html.Action("UserNavPartial", "Account", new { area = "" })</li>
+                        }
+
+
                     }
                     @*//-------------------------------------------------------------------------------//*@
                                
                 </ul>
-                <ul class="navbar-collapse navbar-right">  @*pull navbar to the right, alos add route*@ 
-                    @Html.Action("_CartPartial","Cart") @*cart cartial in cart contoller*@
-                </ul>
+
+                @*ensure that shopping cart isnt desiplayeyd in admin's section:*@ 
+                @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <ul class="navbar-collapse navbar-right adminarea ">
+                        @*pull navbar to the right, alos add route*@
+                         
+                    </ul>
+                }
+                else
+                {
+                    if (ViewBag.Title != "Cart Details")
+                    {
+                    <ul class="navbar-collapse navbar-right">
+                        @*pull navbar to the right, alos add route*@
+                        @Html.Action("_CartPartial", "Cart") @*cart cartial in cart contoller*@
+                    </ul>
+                    }
+                }
+
+
+
             </div>
         </div>
     </div>
