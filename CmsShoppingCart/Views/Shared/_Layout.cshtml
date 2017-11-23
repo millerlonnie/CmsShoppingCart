@@ -63,7 +63,8 @@
                 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
                 {
                     <ul class="navbar-collapse navbar-right adminarea ">
-                        @*pull navbar to the right, alos add route*@
+                        @*pull navbar to the right, alos add route, add admin route*@
+                        <li>@Html.ActionLink("Admin Area","Index","Dashboard", new { area = "Admin"}, null)</li>
                          
                     </ul>
                 }
