@@ -224,6 +224,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CmsShoppingCartContext.cs" />
     <Compile Include="Models\Data\Category.cs" />
+    <Compile Include="Models\Data\OrderDetailsDTO.cs" />
+    <Compile Include="Models\Data\OrderDTO.cs" />
     <Compile Include="Models\Data\Page.cs" />
     <Compile Include="Models\Data\Product.cs" />
     <Compile Include="Models\Data\RoleDTO.cs" />
