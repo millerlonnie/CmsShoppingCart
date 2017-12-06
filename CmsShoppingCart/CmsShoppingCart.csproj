@@ -221,6 +221,10 @@
     <Compile Include="Migrations\201710101939206_accout123.Designer.cs">
       <DependentUpon>201710101939206_accout123.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712060908010_latest.cs" />
+    <Compile Include="Migrations\201712060908010_latest.Designer.cs">
+      <DependentUpon>201712060908010_latest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CmsShoppingCartContext.cs" />
     <Compile Include="Models\Data\Category.cs" />
@@ -689,6 +693,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\UserNavPartial.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
+    <Content Include="Views\Cart\PayPalPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Models\" />
@@ -725,6 +730,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710101939206_accout123.resx">
       <DependentUpon>201710101939206_accout123.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712060908010_latest.resx">
+      <DependentUpon>201712060908010_latest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

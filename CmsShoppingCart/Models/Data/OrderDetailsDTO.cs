@@ -17,7 +17,7 @@ namespace CmsShoppingCart.Models.Data
         public int ProductId { get; set; } //foreign key
         public int Quantity { get; set; }  //foreign key
 
-        [ForeignKey("OrderID")]
+        [ForeignKey("OrderId")]
         public virtual OrderDTO Orders { get; set; }
         [ForeignKey("UserId")]
         public virtual UserDTO Users { get; set; }
